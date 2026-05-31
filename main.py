@@ -21,12 +21,12 @@ def solve_maze(maze):
                         # 迷路の範囲内（インデックスアウトの防止）
                         if 0 <= ny < rows and 0 <= nx < cols:
                             # 隣が元の壁(1)か、既に埋められた袋小路(2)ならカウント
-                            if maze[ny][nx] in (1, 2):
+                            if maze[ny][nx] == 1:
                                 wall_count += 1
                     
                     # 3面以上が壁に囲まれていたら袋小路として埋める
                     if wall_count >= 3:
-                        maze[y][x] = 2  # 灰色（2）に書き換え
+                        maze[y][x] = 1  # 灰色（2）に書き換え
                         updated = True   # 更新フラグを立てる
                         
         # 迷路全体を1周スキャンして、どこも書き換わらなくなったら終了（確定）
@@ -42,8 +42,6 @@ def print_maze(maze):
         for cell in row:
             if cell == 1:
                 row_str += "■ "  # 元の壁
-            elif cell == 2:
-                row_str += "▤ "  # 穴埋めされた袋小路（図2の灰色）
             elif cell == 0:
                 row_str += "□ "  # 残った正しい道
             elif cell == 8:
